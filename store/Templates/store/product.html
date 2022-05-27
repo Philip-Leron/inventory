@@ -1,0 +1,104 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %}Product {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--TABLE-->
+<div class="container">
+    <div class="row my-4">
+      <div class="col-md-4">
+        <div class="border bg-white p-3">
+        
+          <h4>Add Products</h4>
+          <hr>
+          <form method="POST" enctype="multipart/form-data">
+
+            <!--
+            
+            <div class="form-floating my-4">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  
+                  <option value="1">HP</option>
+                  <option value="2">DELL</option>
+                  <option value="3">COMPAQ</option>
+                  <option value="4">Toshiba</option>
+                </select>
+                <label for="floatingSelect">Brand</label>
+              </div>
+
+              <div class="form-floating my-4">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  
+                  <option value="1">LAPTOP</option>
+                  <option value="2">DESKTOP</option>
+                  <option value="3">PRINTER</option>
+                  <option value="4">MOUSE</option>
+                </select>
+                <label for="floatingSelect">Category</label>
+              </div>
+            -->
+            {% csrf_token %}
+              {{form|crispy}}
+              <!--
+              <div class="mb-3">
+                
+                <input type="text"placeholder="Serial" class="form-control input_style" id="exampleInputPassword1">
+              </div>
+            -->
+              <button type="submit" class="btn btn-primary m-3">Submit</button>
+            
+            
+               <!--- <input class="btn btn-success btn-block" type="submit" value="Add"> -->
+          </form>
+
+        </div>
+      </div>
+      <div class="col md-8">
+        <table class="table border border-success">
+          <thead class="bg-info">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Brand</th>
+              <th scope="col">Category</th>
+              <th scope="col">Serial</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for item in items%}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              
+              <td>{{item.brand}}</td>
+              <td>{{item.category}}</td>
+              <td>{{item.serial}}</td>
+              <td>
+                <a class="btn btn-info btn-sm" href="{% url 'store-product-update' item.id %}">Edit<i class="fa fa-edit"></i></a>
+                <a class="btn btn-danger btn-sm" href="{% url 'store-product-delete' item.id %}">Delete<i class="fa fa-trash"></i></a>
+              </td>
+            </tr>
+           {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    
+    
+  </div>
+  
+  <!--End TABLE-->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    {% for message in messages %}
+    
+      swal('{{message}}');
+    
+    
+    {% endfor %}
+  </script>
+
+{% endblock %}

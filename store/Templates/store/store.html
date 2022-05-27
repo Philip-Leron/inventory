@@ -1,0 +1,96 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="col-md-12" >
+    
+        <div class="card-header bg-info text-white" style="display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        ">
+            <marquee behavior=""direction="">
+                <h3 class="my-4"><img src="{% static 'images/logo.png' %}"style="width:40px; height:40px" alt="waec logo">Welcome to West African Examinations Council... Cyber Inventory</h3>
+            </marquee>
+        </div>
+        
+       
+    
+
+</div>
+
+<div class="row" style="
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+padding-left: 5%;
+padding-right: 5%;">
+    {% for product in products %}
+        <div class="col-lg-4" style="width: 300px;
+        height: 300px;
+        margin: 1%;
+        color: #FFF;
+        background-color: hsla(195, 60%, 50%, 1);
+        @media screen and (min-width: 500px) {
+            .row {
+              display: flex;
+              flex-direction: row;
+              padding-left: 15%;
+              padding-right: 15%;
+            }
+        ">            
+
+
+
+
+
+            <img class="thumbnail" src="{{product.imageURL}}" />
+            <div class="box-element product">
+                <h6><strong>{{product.serial}}</strong></h6>
+                <hr>
+                
+                {% if product.status == 1 %}
+                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-danger add-btn update-cart rounded-pill">Add to Cart</button>
+				{% else %}
+                <button data-product="{{product.id}}" class="btn btn-warning">Out of Stock</button>
+                {% endif %}
+				<!--<a class="btn btn-outline-success" href="#">View</a>-->
+				<h4 style="display: inline-block; float: right"><strong>{{product.category}}</strong></h4>
+            
+            </div>
+        </div>
+       
+        {% endfor %}
+
+</div>
+<!-- PAGINATION START -->
+<ul class="pagination justify-content-center mb-0">
+                                    
+    <li class="page-item">
+        {% if page.has_previous %}
+        <a class="page-link" href="{% url "store" %}?page={{ page.previous_page_number }}" aria-label="Previous">Prev</a>
+        {% endif  %}
+    </li>
+    {% for num_page in page.paginator.page_range %}
+    {% if page.number == num_page %}
+    <li class="page-item active"><a class="page-link" href="{% url "store" %}?page={{ num_page }}" >{{num_page}}</a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="{% url "job" %}?page={{ num_page }}" >{{num_page}}</a></li>
+    {% endif %}
+    {% endfor %}
+    <!--
+    <li class="page-item"><a class="page-link" href={% static "javascript:void(0)" %}>2</a></li>
+    <li class="page-item"><a class="page-link" href={% static "javascript:void(0)" %}>3</a></li>
+    -->
+    <li class="page-item">
+        {% if  page.has_next %}
+        <a class="page-link" href="{% url "store" %}?page={{ page.next_page_number }}" aria-label="Next">Next</a>
+        {% endif %}
+    </li>
+    
+</ul>
+<!-- PAGINATION END -->
+<div></div>
+{% endblock content %}
+ 

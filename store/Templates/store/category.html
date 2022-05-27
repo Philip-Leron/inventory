@@ -1,0 +1,80 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %} Category {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!--TABLE-->
+<div class="container">
+    <div class="row my-4">
+      <div class="col-md-4">
+        <div class="border bg-white p-3">
+          <h4>Add Category</h4>
+          <hr>
+          <form method="POST">
+            
+            <!--
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">CATEGORY</label>
+              <input type="text" placeholder="Category" class="form-control" id="exampleInputCategory">
+            </div>
+          -->
+
+            
+            {% csrf_token %}
+            {{form|crispy}} 
+              
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+               
+            
+               <!--- <input class="btn btn-success btn-block" type="submit" value="Add"> -->
+          </form>
+
+        </div>
+      </div>
+      <div class="col md-8">
+        <table class="table border border-success">
+          <thead class="bg-info">
+            <tr>
+              <th scope="col">#</th>
+              
+              <th scope="col">Category</th>
+              
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for item in items%}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              
+              <td>{{item.category}}</td>
+              
+              <td>
+                <a class="btn btn-info btn-sm" href="#">Edit<i class="fa fa-edit"></i></a>
+                <a class="btn btn-danger btn-sm" href="#">Delete<i class="fa fa-trash"></i></a>
+              </td>
+            </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    
+    
+  </div>
+  
+  <!--End TABLE-->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    {% for message in messages %}
+    
+      swal('{{message}}');
+    
+    
+    {% endfor %}
+  </script>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %}Return Stocks {% endblock %}
+
+{% block content %}
+
+ <!--TABLE-->
+ <div class="container">
+    <div class="row my-2">
+      <div class="col-md-2">
+        <div class="border bg-white p-2">
+          <h4>Return Stocks</h4>
+          <hr>
+         
+
+        </div>
+      </div>
+      <div class="col md-8">
+        <table class="table border border-success">
+          <thead class="bg-info">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">ISSUER</th>
+              <th scope="col">RECEIVER</th>
+              <th scope="col">DIVISION</th>
+              <th scope="col">DEPARTMENT</th>
+              <th scope="col">LOCATION</th>
+              <th scope="col">PURPOSE</th>
+              <th scope="col">VIEW<th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{item.iName}}</td>
+              <td>{{item.rName}}</td>
+              <td>{{item.rDivision}}</td>
+              <td>{{item.rDepartment}}</td>
+              <td>{{item.rLocation}}</td>
+              <td>{{item.rPurpose}}</td>
+              <td>
+                
+                <a href={% url 'detail' item.id %}  class="btn btn-danger btn-sm"><i class="fa fa-external-link"></i></a>
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+
+        </table>
+        
+
+
+      </div>
+
+    </div>
+    
+    
+  </div>
+  
+  <!--End TABLE-->
+
+{% endblock %}

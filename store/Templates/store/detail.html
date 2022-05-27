@@ -1,0 +1,91 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="box-element" id="form-wrapper">          
+            <form method="POST">
+                {% csrf_token %}
+                <div>
+                    
+                    <strong><p>Issuing Staff</p></strong>
+                      
+                        <h5></h5>
+                                
+                        
+                </div>
+                
+                <div>
+                    <hr>
+                   
+						<strong><p>Receiving Staff</p></strong>
+						<hr>
+                      
+                        
+                    
+                    <div class="form-field">
+                        <h5></h5>
+                    </div>
+                    
+                    
+                       
+                    
+                        
+                    
+                    
+						<div class="form-field">
+							<!--<input class="form-control" type="text" name="division" placeholder="Division..">-->
+						</div>
+						<div class="form-field">
+							<!--<input class="form-control" type="text" name="dept" placeholder="Department..">-->
+						</div>
+                        <div class="form-field">
+							<!--<input class="form-control" type="text"  name="location" placeholder="Location..">-->
+						</div>
+						<div class="form-group">
+							<!--<input class="form-control" type="text" name="purpose" placeholder="Purpose..">-->
+						</div>
+                        
+						
+                </div>
+               
+                <hr>
+                
+                
+                
+            
+            
+        </div>
+
+    </div>
+    <div class="col-lg-8">
+        <div class="box-element">
+            <a  class="btn btn-outline-dark" href="{% url 'checkin' %}">&#x2190; Back to Orders</a>
+				<hr>
+				<h3>Stocks</h3>
+				<hr>
+                
+                {% for item in items %}
+                <div class="cart-row">
+                    {% csrf_token %}
+					
+					<div style="flex:2"><p>{{item.brand}}</p></div>
+					<div style="flex:2"><p>{{item.category}}</p></div>
+                    <div style="flex:3"><p>{{item.serial}}</p></div>
+					<div style="flex:1" name="quantity"><p name="quantity">{{ item.quantity}}</p></div>
+                    
+                    {% if item.status == item.returned  %}
+                    <div style="flex:1"><input type="checkbox" name="boxes" value={{item.id}}></div>
+                    <hr>
+                    {% if forloop.last %}
+                    <div class="row"><input class="btn btn-success btn-block" type="submit" value="Confirm"/></div>
+                    {% endif %}
+                    {% endif %}
+				</div>
+                {% endfor %}
+                
+            </form>           
+        </div>
+    </div>   
+</div>
+{% endblock content %}
